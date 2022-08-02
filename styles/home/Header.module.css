@@ -1,0 +1,58 @@
+@media (min-width:250px){
+    .header{
+        display: flex;
+        align-items: center;
+        background-color: #131921;
+        height: 65px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        padding-left: 5px;
+    }
+    .logo{
+        cursor: pointer;
+        height: 95%;
+        padding: 7px 8px;
+    }
+    .logo:hover{
+        padding: 6px 7px;
+        border: 1px solid white;
+    }
+    .logo_img{
+        width: 128px;
+        display: block;
+        object-fit: contain;
+        margin-top: 10px;
+        height: 40px;
+    }
+
+    .header > form {
+        width:100px;
+        height: 60%;
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+    }
+    .header > form input{
+        flex: 1;
+        height: 100%;
+        border:none;
+        outline: none;
+        border-radius: 5px 0px 0px 5px;
+        padding-left:10px;
+        font-size: 18px;
+    }
+    .header > form button {
+        border:none;
+        outline: none;
+        background-color: #cd9042;
+        height: 100%;
+        width:40px;
+        padding:5px;
+        border-radius: 0px 5px 5px 0px;
+        cursor: pointer;
+    }
+}
