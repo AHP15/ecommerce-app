@@ -1,0 +1,32 @@
+@media (min-width:250px) {
+    .navbar, .navbar_close{
+        position:absolute;
+        top:0;
+        right: 0;
+        width:70%;
+        background-color: #131921;
+        color:white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding:20px;
+        padding-top: 40px;
+        z-index: 100;
+        transition: 0.3s;
+    }
+
+    .navbar > div, .navbar_close > div{
+        padding:5px 10px;
+        margin: 3px 5px;
+        cursor: pointer;
+        position: relative;
+        width:100px;
+    }
+    .navbar > div:hover, .navbar_close> div:hover{
+        border: 1px solid white;
+        padding: 4px 9px;
+    }
+    .navbar_close{
+        transform:translateX(500px);
+    }
+}
