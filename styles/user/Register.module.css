@@ -1,0 +1,23 @@
+@media (min-width:250px) {
+    .register, .login{
+        display:flex;
+        align-items: center;
+        flex-direction:column;
+    }
+    .register_form{
+        width:95%;
+        max-width: 400px;
+        border: 1px solid lightgrey;
+        border-radius:4px;
+        padding:20px 15px;
+    }
+    .register_form > button{
+        width:100%;
+        outline: none;
+        border: 1px solid #a88734;
+        background-color:#f0c14b;
+        border-radius:4px;
+        padding:7px;
+        cursor: pointer;
+    }
+}

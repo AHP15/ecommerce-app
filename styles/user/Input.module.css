@@ -1,0 +1,23 @@
+@media (min-width:250px) {
+    .label{
+        display: block;
+        font-size:12px;
+        font-weight:bold;
+    }
+    .input_container{
+        margin: 20px auto;
+    }
+    .input_container > input{
+        padding:5px;
+        border: 1px solid lightgrey;
+        outline:none;
+        border-radius:4px;
+        width:100%;
+        transition: 0.2s;
+        font-size: 15px;
+    }
+    .input_container > input:focus{
+        border: 1px solid orange;
+        box-shadow: 1px 1px 10px orange;
+    }
+}

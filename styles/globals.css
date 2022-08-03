@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Bakbak+One&family=Open+Sans:wght@300&family=Outfit:wght@300&family=Roboto:ital,wght@0,100;0,300;1,300&display=swap');
 html,
 body {
   padding: 0;
@@ -15,10 +16,17 @@ a {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
 }
 .home{
   max-width: 1500px;
   height: 500px;
   margin: 0 auto;
   margin-top:65px;
+}
+.logo{
+  display: block;
+  position: relative;
+  width:150px;
+  height: 75px;
 }
