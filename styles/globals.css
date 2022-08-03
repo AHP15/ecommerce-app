@@ -16,4 +16,9 @@ a {
   margin: 0;
   padding: 0;
 }
-
+.home{
+  max-width: 1500px;
+  height: 500px;
+  margin: 0 auto;
+  margin-top:65px;
+}

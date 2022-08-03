@@ -21,11 +21,9 @@
         border: 1px solid white;
     }
     .logo_img{
-        width: 128px;
         display: block;
         object-fit: contain;
         margin-top: 10px;
-        height: 40px;
     }
 
     .header > form {
@@ -99,5 +97,23 @@
     }
     .close_bar::after{
         transform:rotate(-45deg);
+    }
+}
+
+@media (min-width:500px){
+    .header > form {
+        flex: 1;
+        margin-right: 55px;
+    }
+    .header > form input{
+        width:100%;
+    }
+}
+@media (min-width:700px){
+    .humberger{
+        display: none;
+    }
+    .logo_img{
+        width: 128px !important;
     }
 }

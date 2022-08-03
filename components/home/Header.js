@@ -5,7 +5,10 @@ import Navbar from "./Navbar";
 import {useState} from "react";
 
 export default function Header(){
+
     const [open, setOpen] = useState(false);
+
+
     return (
         <header className={styles.header}>
             <div className={styles.logo}>
@@ -31,10 +34,7 @@ export default function Header(){
             >
                 <div className={open? styles.close_bar:styles.bar}></div>
             </div>
-
-            <div>
-                <Navbar open={open} />
-            </div>
+            <Navbar open={open} />
         </header>
     );
 }

@@ -1,6 +1,5 @@
 import styles from "../../styles/home/Navbar.module.css";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { useState } from "react";
 
 export default function Navbar({open}) {
 
