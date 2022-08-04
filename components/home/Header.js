@@ -12,12 +12,14 @@ export default function Header(){
     return (
         <header className={styles.header}>
             <div className={styles.logo}>
-                <Image
-                   src='https://links.papareact.com/f90'
-                   alt="amazon logo"
-                   layout="fill"
-                   className={styles.logo_img}
-                />
+                <div>
+                  <Image
+                    src='https://links.papareact.com/f90'
+                    alt="amazon logo"
+                    layout="fill"
+                    className={styles.logo_img}
+                   />
+                </div>
             </div>
 
             <form>
