@@ -3,6 +3,7 @@ import { useState } from "react";
 import Input from "../components/user/Input";
 import Logo from "../components/user/Logo";
 import styles from "../styles/user/Register.module.css";
+import Link from "next/link";
 
 
 export default function Login(){
@@ -43,6 +44,9 @@ export default function Login(){
                   label="Password"
                 />
                 <button type="submit">Sing In</button>
+                <Link href="/register">
+                   <a className={styles.register_link}>Create an account</a>
+                </Link>
             </form>
           </main>
         </>

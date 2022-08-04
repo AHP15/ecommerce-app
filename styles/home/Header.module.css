@@ -12,9 +12,11 @@
         padding-left: 5px;
     }
     .logo{
+        position: relative;
         cursor: pointer;
         height: 95%;
         padding: 7px 8px;
+        width:100px;
     }
     .logo:hover{
         padding: 6px 7px;

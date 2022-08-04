@@ -1,0 +1,25 @@
+@media (min-width:250px) {
+    .alert_error, .alert_success{
+        position:fixed;
+        bottom:15px;
+        left:10px;
+        display:flex;
+        align-items:center;
+        padding:10px 5px;
+        width:80%;
+        max-width: 400px;
+        border-radius: 5px;
+        animation:animate-alert 0.3s linear;
+    }
+    @keyframes animate-alert {
+        from { bottom:-100px}
+        to {bottom: 15px;}
+    }
+    .alert_error{
+        border:1px solid red;
+        background-color:rgba(255, 0, 0, 0.5);
+    }
+    .message{
+        flex: 1;
+    }
+}

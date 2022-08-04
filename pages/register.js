@@ -120,7 +120,7 @@ export default function Register(){
            </main>
 
            {alert && (
-            <Alert message={alert.message} />
+            <Alert type={alert.type} message={alert.message} />
            )}
         </>
     );

@@ -15,8 +15,7 @@ export default function Header(){
                 <Image
                    src='https://links.papareact.com/f90'
                    alt="amazon logo"
-                   width={70}
-                   height={50}
+                   layout="fill"
                    className={styles.logo_img}
                 />
             </div>
