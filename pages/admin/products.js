@@ -10,7 +10,7 @@ import Link from "next/link";
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function Products(){
-  const [open, setOpen] = useState(true); 
+  const [open, setOpen] = useState(false); 
 
   const columns = [
     { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
