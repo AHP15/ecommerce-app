@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useState } from "react";
 import Input from "../components/user/Input";
-import Logo from "../components/user/Logo";
+import Logo from "../components/Logo";
 import styles from "../styles/user/Register.module.css";
 import Link from "next/link";
 

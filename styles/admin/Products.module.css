@@ -1,0 +1,28 @@
+@media (min-width:250px) {
+    .products_table_closed{
+        width:0px;
+        overflow: hidden;
+    }
+    .products_table{
+        width:100%;
+        max-width: calc(100% - 300px);
+        margin-left:300px;
+        background-color: whitesmoke;
+        min-height: 100vh;
+        padding:10px;
+    }
+    .products_table > h1 {
+        padding: 20px;
+    }
+    .create_btn{
+        display:block;
+        margin-top:20px;
+        outline: none;
+        border: 1px solid #a88734;
+        background-color:#f0c14b;
+        border-radius:4px;
+        padding:7px;
+        cursor: pointer;
+        width:150px;
+    }
+}

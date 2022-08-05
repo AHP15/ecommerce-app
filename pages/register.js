@@ -1,10 +1,12 @@
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../components/user/Input";
-import Logo from "../components/user/Logo";
+import Logo from "../components/Logo";
 import { useAlert } from "../contexts/AlertContext";
 import styles from "../styles/user/Register.module.css";
 import Alert from "../components/Alert";
+import { useRouter } from 'next/router';
+import { useUser } from "../contexts/user/UserContext";
 
 export default function Register(){
 
@@ -14,6 +16,14 @@ export default function Register(){
    const [duplicate, setDuplicate] = useState("");// duplicate password
 
    const {alert, setAlert} = useAlert();
+   const {user, setUser} = useUser();
+   const router = useRouter();
+
+   useEffect(() =>{
+      if(user.isLoggedIn){
+         router.push("/");
+      }
+   },[user.isLoggedIn]);
    
    async function handleRegsiter(event) {
       event.preventDefault();
@@ -32,11 +42,11 @@ export default function Register(){
             message:"Enter Your phone number or email address"
          });
       }
-      if(!password.length < 6){
+      if(password.length < 6){
          return setAlert({
             inputName:"password",
             type:"error",
-            message:"Password must have At leats 6  characters"
+            message:"Password must have At least 6  characters"
          });
       }
       if(password !== duplicate){
@@ -56,10 +66,12 @@ export default function Register(){
             },
          });
          const data = await response.json();
-         setAlert({
-            type:"success",
-            message:"yes"
-         })
+         if(data.success) {
+            setUser({
+               isLoggedIn:true,
+               info:data.user
+            });
+         }
       }catch(err){
          setAlert({
             type:"error",
@@ -101,7 +113,7 @@ export default function Register(){
                      type: 'password',
                      name: 'password',
                      value: password,
-                     placeholder: 'At leats 6  characters',
+                     placeholder: 'At least 6  characters',
                      onChange:(e) => setPassword(e.target.value),
                   }}
                   label="Password"

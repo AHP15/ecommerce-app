@@ -1,9 +1,9 @@
 import styles from "../../styles/home/Navbar.module.css";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
 
 export default function Navbar({open}) {
-    const router = useRouter()
+    const router = useRouter();
 
    return (
     <div className={open?styles.navbar:styles.navbar_close}>
