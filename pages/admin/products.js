@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import styles from "../../styles/admin/Products.module.css";
 import { useState } from "react";
 import Link from "next/link";
-import { style } from "@mui/system";
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Products(){
   const [open, setOpen] = useState(true); 
@@ -53,7 +53,10 @@ export default function Products(){
           </Head>
           <main className={styles.products}>
             <Sidebar open={open} setOpen={() =>setOpen(open => !open)} />
-            <div className={open?styles.products_table:styles.products_table_closed}>
+            <div className={open?styles.products_table_closed:styles.products_table}>
+            <div onClick={() =>setOpen(open => !open)} classe={styles.close_icon}>
+              <CloseIcon />
+            </div>
             <h1>ALL PRODUCTS</h1>
               <DataGrid
                  rows={rows}

@@ -1,12 +1,17 @@
 @media (min-width:250px) {
+    .close_icon{
+        position:absolute;
+        top:10px;
+        right:10px;
+        color:grey !important;
+        cursor: pointer;
+    }
     .products_table_closed{
         width:0px;
         overflow: hidden;
     }
     .products_table{
         width:100%;
-        max-width: calc(100% - 300px);
-        margin-left:300px;
         background-color: whitesmoke;
         min-height: 100vh;
         padding:10px;
@@ -24,5 +29,15 @@
         padding:7px;
         cursor: pointer;
         width:150px;
+    }
+}
+
+@media (min-width:700px){
+    .products_table{
+        max-width:calc(100% - 300px);
+        margin-left: 300px;
+    }
+    .close_icon{
+        display:none;
     }
 }
