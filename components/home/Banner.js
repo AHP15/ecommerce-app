@@ -20,7 +20,7 @@ export default function Banner(){
                <div className={styles.icon_right}></div>
             </div>
             {images?.map(image =>(
-                <div key={image} className={styles.slide}>
+                <div key={image+Math.random().toString()} className={styles.slide}>
                     <Image src={image} layout='fill' />
                 </div>
             ))}

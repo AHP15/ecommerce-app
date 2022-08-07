@@ -7,6 +7,7 @@ import {useState} from "react";
 export default function Header(){
 
     const [open, setOpen] = useState(false);
+    const [openlinks, setOpenlinks] = useState(false);
 
 
     return (
@@ -35,7 +36,9 @@ export default function Header(){
             >
                 <div className={open? styles.close_bar:styles.bar}></div>
             </div>
-            <Navbar open={open} />
+            <Navbar open={open} setOpenlinks={() =>setOpenlinks(open => !open)} />
+
+            <div className={openlinks?styles.user_links_open:styles.user_links}></div>
         </header>
     );
 }

@@ -28,6 +28,13 @@ export default function CreateProduct(){
         }
     }
 
+    async function handleSubmit(event){
+      fetch("/api/product", {
+        method:"POST",
+        body:JSON.stringify({ok:"ok"})
+      })
+    }
+
     return (
         <>
           <Head>
@@ -39,7 +46,7 @@ export default function CreateProduct(){
                   <a><ArrowBackIcon /></a>
                 </Link>
             </div>
-            <form className={styles.product_form}>
+            <form onSubmit={handleSubmit} className={styles.product_form}>
                 <h1>Create product</h1>
                 <Input
                   options={{
@@ -95,7 +102,7 @@ export default function CreateProduct(){
                   }}
                   label="Product images"
                 />
-                <button className={styles.create}>Create Product</button>
+                <button type="submit" className={styles.create}>Create Product</button>
             </form>
           </main>
         </>

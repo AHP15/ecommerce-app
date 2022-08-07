@@ -7,6 +7,7 @@ import styles from "../styles/user/Register.module.css";
 import Alert from "../components/Alert";
 import { useRouter } from 'next/router';
 import { useUser } from "../contexts/user/UserContext";
+import axios from "axios";
 
 export default function Register(){
 
@@ -14,6 +15,8 @@ export default function Register(){
    const [address, setAddress] = useState("");
    const [password, setPassword] = useState("");
    const [duplicate, setDuplicate] = useState("");// duplicate password
+
+   const [avatar, setAvatar] = useState("");
 
    const {alert, setAlert} = useAlert();
    const {user, setUser} = useUser();
@@ -57,15 +60,16 @@ export default function Register(){
          });
       }
 
+      const myForm = new FormData();
+      myForm.set("name",name);
+      myForm.set("address", address);
+      myForm.set("password", password);
+      myForm.set("avatar", avatar);
+
       try{
-         const response = await fetch("/api/auth/register", {
-            method: 'POST',
-            body: JSON.stringify({name, address, password}),
-            headers: {
-               'Content-Type': 'application/json'
-            },
-         });
-         const data = await response.json();
+         let url = "/api/auth/register";
+         const config = { headers: { "Content-Type": "multipart/form-data" } };
+         const {data} = await axios.post(url,myForm, config);
          if(data.success) {
             setUser({
                isLoggedIn:true,
@@ -75,7 +79,7 @@ export default function Register(){
       }catch(err){
          setAlert({
             type:"error",
-            message:err.message
+            message:err.response?.data?.message || err.message
          })
       }
    }
@@ -126,6 +130,15 @@ export default function Register(){
                      onChange:(e) => setDuplicate(e.target.value),
                   }}
                   label="Re-enter password"
+                />
+                <Input
+                  options={{
+                     type: 'file',
+                     name: 'avatar',
+                     accept:'image/*',
+                     onChange:(e) => setAvatar(e.target.files[0]),
+                  }}
+                  label="Choose a profile photo"
                 />
                 <button type="submit">Sing Up</button>
              </form>

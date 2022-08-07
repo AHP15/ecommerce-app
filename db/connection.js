@@ -4,7 +4,10 @@ const isConnected = false;
 
 async function connectDB(){
     const client = new MongoClient(process.env.uri);
-    if(isConnected) return client.db("ecommerce-next");
+    if(isConnected) {
+        console.log("database already connected");
+        return client.db("ecommerce-next");
+    }
 
     try{
         await client.connect();

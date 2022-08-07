@@ -104,6 +104,21 @@
     .close_bar::after{
         transform:rotate(-45deg);
     }
+    .user_links, .user_links_open{
+        width:0;
+        height: 0;
+        background-color:white;
+        z-index: 110;
+        position:fixed;
+        top: 85px;
+        right: 85px;
+        border-radius: 5px;
+        transition: 0.3s;
+    }
+    .user_links_open{
+        width:100px;
+        height: 150px;
+    }
 }
 
 @media (min-width:500px){

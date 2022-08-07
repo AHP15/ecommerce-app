@@ -6,17 +6,17 @@
         color:grey !important;
         cursor: pointer;
     }
-    .products_table_closed{
+    .products_table_closed, .users_table_closed{
         width:0px;
         overflow: hidden;
     }
-    .products_table{
+    .products_table, .users_table{
         width:100%;
         background-color: whitesmoke;
         min-height: 100vh;
         padding:10px;
     }
-    .products_table > h1 {
+    .products_table > h1, .users_table > h1 {
         padding: 20px;
     }
     .create_btn{
@@ -33,7 +33,7 @@
 }
 
 @media (min-width:700px){
-    .products_table{
+    .products_table, .users_table{
         max-width:calc(100% - 300px);
         margin-left: 300px;
     }

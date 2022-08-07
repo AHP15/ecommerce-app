@@ -5,12 +5,27 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import styles from "../../styles/admin/Products.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import CloseIcon from '@mui/icons-material/Close';
 
 export default function Products(){
-  const [open, setOpen] = useState(false); 
+  const [open, setOpen] = useState(false);
+  const [close, setClose] = useState(false);
+
+  useEffect(() =>{
+    if(window.innerWidth > 700){//in a small screen sidebar should close intianly
+      setOpen(true);
+    }
+    //in a small screen if sidebar opened table shold be closed
+    if(window.innerWidth < 700 && open){
+      setClose(true);
+    }
+  }, []);
+  function handleClick(){
+    setClose(close => !close);
+    setOpen(open => !open);
+  } 
 
   const columns = [
     { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
@@ -53,8 +68,8 @@ export default function Products(){
           </Head>
           <main className={styles.products}>
             <Sidebar open={open} setOpen={() =>setOpen(open => !open)} />
-            <div className={open?styles.products_table_closed:styles.products_table}>
-            <div onClick={() =>setOpen(open => !open)} classe={styles.close_icon}>
+            <div className={close?styles.products_table_closed:styles.products_table}>
+            <div onClick={handleClick} className={styles.close_icon}>
               <CloseIcon />
             </div>
             <h1>ALL PRODUCTS</h1>
