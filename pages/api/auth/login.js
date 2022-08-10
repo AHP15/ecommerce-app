@@ -2,13 +2,16 @@ import connectDB from "../../../db/connection";
 import {createToken} from "../../../utils/user";
 import bcrypt from "bcryptjs";
 import cookie from "cookie";
+import validateBody from "../../../utils/validateRequestBody";
 
 export default async function handler(req, res){
-    const DB = await connectDB();
-    const User = DB.collection("users");
 
     try{
-        const user = await User.find({address:req.body.address});
+        validateBody(req.body, ["address", "password"]);
+
+        const DB = await connectDB();
+        const User = DB.collection("users");
+        const user = await User.findOne({address:req.body.address});
 
         if(!user){
             res.status(404).send({
@@ -38,7 +41,10 @@ export default async function handler(req, res){
 
         res.status(200).send({
             success: true,
-            user
+            user:{
+                ...user,
+                password:null,
+            }
         });
 
     }catch(err){

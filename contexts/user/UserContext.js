@@ -1,4 +1,5 @@
 import React, {useState, useContext, useEffect} from 'react';
+import axios from "axios";
 
 const UserContext = React.createContext();
 
@@ -10,10 +11,32 @@ export function UserProvider({children}){
     const [user, setUser] = useState({
         isLoggedIn:false,
     });
-
+    
+    async function LoadUserData(){
+        let url = "/api/user"
+        try{
+            const {data} = await axios.get(url);
+            if(data.success){
+                setUser({
+                    isLoggedIn:true,
+                    info:data.user
+                });
+                console.log(data)
+            }
+        }catch(err){
+            setUser({
+                isLoggedIn:false,
+            });
+            localStorage.removeItem("ecommerce-user-loggedIn");
+            console.log(err.response?.data?.message ?? err.message);
+        }
+    }
     useEffect(() =>{
-        console.log(user)
-    }, [user]);
+        const userLoggedIn = localStorage.getItem("ecommerce-user-loggedIn");
+        if(userLoggedIn){
+            LoadUserData();
+        }
+    }, []);
 
     return (
         <UserContext.Provider value={{user, setUser}}>

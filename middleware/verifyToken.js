@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 
 const verifyToken = (handler, role) =>(req, res) =>{
+    //console.log("in verify token")
     const { token } = req.cookies;
 
     if(!token){
@@ -12,10 +13,11 @@ const verifyToken = (handler, role) =>(req, res) =>{
 
     jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if(err){
+            console.log(err);
             return res.status(401).send({
                     success: false,
                     message: err.message
-                });
+            });
         }
 
         req.userId = decoded.id;

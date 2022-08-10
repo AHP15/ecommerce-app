@@ -21,7 +21,7 @@ export default function Banner(){
             </div>
             {images?.map(image =>(
                 <div key={image+Math.random().toString()} className={styles.slide}>
-                    <Image src={image} layout='fill' />
+                    <Image src={image} layout='fill' priority />
                 </div>
             ))}
         </div>

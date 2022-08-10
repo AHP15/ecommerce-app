@@ -1,0 +1,28 @@
+@media (min-width: 250px) {
+    .productCard{
+        color: black;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 280px;
+        height: 350px;
+        transition: all 0.5s;
+        padding: 20px;
+        z-index: 90;
+        background-color: white;
+        margin: 10px;
+        padding-bottom: 40px;
+        border-radius: 5px;
+    }
+    .productCard > p{
+        margin-top: 20px;
+    }
+    .productCard > div{
+        display: flex;
+        align-items: center;
+    }
+    .productCard:hover{
+        transform: translateY(-10px);
+        box-shadow: 0 0 5px rgba(15, 15, 15, 0.26);
+    }
+}

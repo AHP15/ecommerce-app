@@ -3,11 +3,14 @@ import styles from "../../styles/home/Header.module.css";
 import SearchIcon from '@mui/icons-material/Search';
 import Navbar from "./Navbar";
 import {useState} from "react";
+import {useUser} from "../../contexts/user/UserContext";
+import Link from "next/link";
 
 export default function Header(){
 
     const [open, setOpen] = useState(false);
     const [openlinks, setOpenlinks] = useState(false);
+    const {user} = useUser();
 
 
     return (
@@ -31,14 +34,29 @@ export default function Header(){
             </form>
 
             <div 
-               onClick={() =>setOpen(open => !open)} 
+               onClick={() =>{
+                setOpen(open => !open)
+                setOpenlinks(false);
+               }} 
                className={open?styles.close:styles.humberger}
             >
                 <div className={open? styles.close_bar:styles.bar}></div>
             </div>
-            <Navbar open={open} setOpenlinks={() =>setOpenlinks(open => !open)} />
+            <Navbar open={open} setOpenlinks={setOpenlinks} />
 
-            <div className={openlinks?styles.user_links_open:styles.user_links}></div>
+            {user.isLoggedIn && <div 
+              className={openlinks?styles.user_links_open:styles.user_links}
+              onMouseMove={() =>setOpenlinks(true)}
+              onTouchMove={() =>setOpenlinks(true)}
+              onMouseOut={() =>setOpenlinks(false)}
+            >
+             {  user.info?.role === "admin" && 
+              <Link href="/admin/dashboard"><a className={styles.link}>Dashboard</a></Link>
+             }
+             <Link href="/profile"><a className={styles.link}>Profile</a></Link>
+             <p className={styles.link}>Logout</p>
+            </div>
+            }
         </header>
     );
 }

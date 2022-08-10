@@ -1,6 +1,6 @@
 import { MongoClient } from "mongodb";
 
-const isConnected = false;
+let isConnected = false;
 
 async function connectDB(){
     const client = new MongoClient(process.env.uri);
@@ -11,6 +11,7 @@ async function connectDB(){
 
     try{
         await client.connect();
+        isConnected = true;
         console.log("connected to database successfully");
     }catch(err){
         console.error(err);

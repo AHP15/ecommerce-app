@@ -2,7 +2,7 @@ import verifyToken from "../../../../middleware/verifyToken";
 import connectDB from "../../../../db/connection";
 import {GridFSBucket, ObjectId} from "mongodb";
 
-export default async function handler(req, res){
+async function handler(req, res){
     const {id} = req.query;
 
     try{
@@ -19,4 +19,4 @@ export default async function handler(req, res){
     }
 }
 
-//export default verifyToken(handler, "user");
+export default verifyToken(handler, "user");

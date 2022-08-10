@@ -111,13 +111,24 @@
         z-index: 110;
         position:fixed;
         top: 85px;
-        right: 85px;
+        right: 80px;
         border-radius: 5px;
         transition: 0.3s;
     }
     .user_links_open{
         width:100px;
         height: 150px;
+    }
+    .link{
+        display:block;
+        margin: 10px auto;
+        text-align: center;
+        text-decoration: underline;
+        opacity: 0;
+    }
+    .user_links_open .link{
+        opacity: 1;
+        transition: 0.5s;
     }
 }
 
@@ -129,12 +140,19 @@
     .header > form input{
         width:100%;
     }
+    .user_links, .user_links_open{
+        right: 170px;
+    }
 }
 @media (min-width:700px){
     .humberger{
         display: none;
     }
-    .logo_img{
-        width: 128px !important;
+    .logo{
+        width:128px;
+    }
+    .user_links, .user_links_open{
+        top: 70px;
+        right: 200px;
     }
 }

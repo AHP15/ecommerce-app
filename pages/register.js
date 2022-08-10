@@ -15,6 +15,7 @@ export default function Register(){
    const [address, setAddress] = useState("");
    const [password, setPassword] = useState("");
    const [duplicate, setDuplicate] = useState("");// duplicate password
+   const [loading, setLoading] = useState(false);
 
    const [avatar, setAvatar] = useState("");
 
@@ -27,6 +28,9 @@ export default function Register(){
          router.push("/");
       }
    },[user.isLoggedIn]);
+   useEffect(() =>{
+      console.log(loading)
+   }, [loading])
    
    async function handleRegsiter(event) {
       event.preventDefault();
@@ -60,6 +64,8 @@ export default function Register(){
          });
       }
 
+      setLoading(true);
+
       const myForm = new FormData();
       myForm.set("name",name);
       myForm.set("address", address);
@@ -73,15 +79,19 @@ export default function Register(){
          if(data.success) {
             setUser({
                isLoggedIn:true,
-               info:data.user
+               info:data.user,
             });
+            localStorage.setItem('eecommerce-user-loggedIn', "true");
          }
       }catch(err){
          setAlert({
             type:"error",
             message:err.response?.data?.message || err.message
          })
+      }finally{
+         setLoading(false);
       }
+
    }
 
     return (
@@ -91,7 +101,9 @@ export default function Register(){
            </Head>
            <main className={styles.register}>
              <Logo />
-             <form onSubmit={handleRegsiter} className={styles.register_form}>
+             <form 
+                style={{filter:loading?"blur(3px)":"blur(0)"}} 
+                onSubmit={handleRegsiter} className={styles.register_form}>
                 <h1>Sign-In</h1>
                 <Input
                   options={{

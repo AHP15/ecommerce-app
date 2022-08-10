@@ -9,6 +9,7 @@ import cookie from "cookie";
 
 async function handler(req, res){
     try{
+        console.log(req.body)
         validateBody(req.body, ["name","address", "password"]);
 
         const DB = await connectDB();
@@ -40,7 +41,11 @@ async function handler(req, res){
     
         res.status(201).json({
            success: true,
-           user
+           user:{
+            ...data,
+            password:null,
+            id:user.insertedId
+           }
         });
 
         fs.unlink(`./files/${req.file.filename}`, err => console.log(err))

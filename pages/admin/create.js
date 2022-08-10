@@ -4,6 +4,10 @@ import Input from "../../components/user/Input";
 import styles from "../../styles/admin/Create.module.css";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Link from "next/link";
+import Image from "next/image";
+import {useAlert} from "../../contexts/AlertContext";
+import Alert from "../../components/Alert";
+import axios from "axios";
 
 
 export default function CreateProduct(){
@@ -15,11 +19,26 @@ export default function CreateProduct(){
         category:"",
         stock:0,
     });
-    const [images, setImages] = useState([])
+    const [images, setImages] = useState([]);
+    const [imagespreview, setImagespreview] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    const {alert, setAlert} = useAlert();
 
     const handleChange = (event) => {
         if(event.target.name === "images"){
-
+          const files = Array.from(event.target.files);
+          files.forEach(image => {
+            const reader = new FileReader();
+            setImages(prev => [...prev, image])
+            reader.onload = () => {
+              if (reader.readyState === 2) {
+                setImagespreview((old) => [...old, reader.result]);
+              }
+            };
+      
+            reader.readAsDataURL(image);
+          });
         }else{
             setProduct(product => ({
                 ...product,
@@ -29,10 +48,58 @@ export default function CreateProduct(){
     }
 
     async function handleSubmit(event){
-      fetch("/api/product", {
-        method:"POST",
-        body:JSON.stringify({ok:"ok"})
-      })
+      event.preventDefault();
+      
+      for(let key of Object.keys(product)){
+        if(!product[key]){
+          return setAlert({
+            inputName:key,
+            type:"error",
+            message:`Enter a product ${key}`
+          });
+        }
+      }
+      setLoading(true);
+      const formData = new FormData();
+
+      formData.set("name", product.name);
+      formData.set("price",product.price);
+      formData.set("description", product.description);
+      formData.set("category", product.category);
+      formData.set("stock", product.stock);
+      images.forEach(image =>{
+         formData.append("images", image);
+      });
+
+      for(let p of formData.entries()){
+        console.log(p[0], p[1]);
+      }
+
+      try{
+        const url = "/api/product";
+        const config = { headers: { "Content-Type": "multipart/form-data" } };
+        const {data} = await axios.post(url,formData, config);
+        if(data.success){
+          setProduct({
+            name:"",
+            price:0,
+            description:"",
+            category:"",
+            stock:0,
+          });
+          setImages([]);
+          setImagespreview([]);
+          setAlert({
+            type:"success",
+            message:"product created successfully"
+          });
+        }
+      }catch(err){
+        console.log(err.message)
+      }finally{
+        setLoading(false);
+      }
+
     }
 
     return (
@@ -102,9 +169,24 @@ export default function CreateProduct(){
                   }}
                   label="Product images"
                 />
-                <button type="submit" className={styles.create}>Create Product</button>
+                <div className={styles.imagespreview_container}>
+                  {imagespreview.map((image, index) => (
+                    <div key={index} className={styles.image_container}>
+                      <Image src={image} layout="fill" />
+                    </div>
+                  ))}
+                </div>
+                <button 
+                  type="submit" 
+                  className={styles.create}
+                  disabled={loading}
+                  >Create Product</button>
             </form>
           </main>
+
+          {alert && (
+            <Alert type={alert.type} message={alert.message} />
+          )}
         </>
     );
 }
