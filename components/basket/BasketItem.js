@@ -4,7 +4,7 @@ import styles from "../../styles/basket/BasketItem.module.css";
 import Image from "next/image";
 import { useBasket } from "../../contexts/basket/BasketContext";
 
-const BasketItem = React.memo(({item}) =>{
+export default React.memo(({item}) =>{
 
     const {changeQuantity, removeItem} = useBasket();
 
@@ -46,5 +46,3 @@ const BasketItem = React.memo(({item}) =>{
         </div>
     );
 }, equalByValue);
-
-export default BasketItem;

@@ -16,7 +16,7 @@ function ImageSlide({public_id, name, url, selectedimage, setSelectedimage}){
     );
 }
 
-const ProductImages = React.memo(({images, name}) =>{
+export default React.memo(({images, name}) =>{
     const [selectedimage, setSelectedimage] = useState(() =>images[0]);
 
     return (
@@ -39,5 +39,3 @@ const ProductImages = React.memo(({images, name}) =>{
         </div>
     );
 }, equalByValue);
-
-export default ProductImages;
