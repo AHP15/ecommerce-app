@@ -6,6 +6,7 @@ import BasketItem from "../components/basket/BasketItem";
 
 export default function Basket(){
     const {basket} = useBasket();
+    console.log(basket);
     return (
         <>
           <Head>

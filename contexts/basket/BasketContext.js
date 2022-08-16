@@ -37,7 +37,9 @@ export function BasketProvider({children}){
     }, [basket]);
 
     useEffect(() =>{
-        setBasket(JSON.parse(localStorage.getItem("basket")))
+        if(JSON.parse(localStorage.getItem("basket"))){
+            setBasket(JSON.parse(localStorage.getItem("basket")))
+        }
     },[])
 
     
