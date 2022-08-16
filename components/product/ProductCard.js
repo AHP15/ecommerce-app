@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Rating } from '@mui/material';
 import styles from "../../styles/product/ProductCard.module.css";
+import {equalByValue} from "../../utils/compareProps";
 
 const ProductCard = React.memo(({product}) =>{
     const options = {
@@ -36,14 +37,5 @@ const ProductCard = React.memo(({product}) =>{
     );
 }, equalByValue);
 
-function equalByValue(prevProps, nextProps){
-  Object.keys(nextProps).forEach(key =>{
-    if(nextProps[key] !== prevProps[key]){
-      console.log("ok")
-      return false;
-    }
-  });
-  return true;
-}
 
 export default ProductCard;

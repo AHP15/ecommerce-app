@@ -22,8 +22,9 @@ a {
   max-width: 1500px;
   margin: 0 auto;
   margin-top:65px;
-  background-color: whitesmoke;
+  background-color: lightgrey;
   height:fit-content;
+  min-height: calc(100vh - 65px);
 }
 .logo{
   display: block;

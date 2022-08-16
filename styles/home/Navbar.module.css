@@ -15,7 +15,7 @@
         transition: 0.1s;
     }
 
-    .navbar > div, .navbar_close > div{
+    .navbar > a, .navbar_close > a{
         padding:5px 10px;
         margin: 3px 5px;
         cursor: pointer;
@@ -23,7 +23,7 @@
         width:100px;
         height: 50px;
     }
-    .navbar > div:hover, .navbar_close> div:hover{
+    .navbar > a:hover, .navbar_close> a:hover{
         border: 1px solid white;
         padding: 4px 9px;
     }
@@ -41,7 +41,7 @@
         width:300px;
         transform:translateX(0px);
     }
-    .navbar > div, .navbar_close > div{
+    .navbar > a, .navbar_close > a{
         font-size: 14px;
     }
 }

@@ -1,12 +1,15 @@
 import '../styles/globals.css';
 import {AlertProvider} from "../contexts/AlertContext";
 import {UserProvider} from "../contexts/user/UserContext";
+import {BasketProvider} from "../contexts/basket/BasketContext";
 
 function MyApp({ Component, pageProps }) {
   return (
     <AlertProvider>
       <UserProvider>
-        <Component {...pageProps} />
+        <BasketProvider>
+          <Component {...pageProps} />
+        </BasketProvider>
       </UserProvider>
     </AlertProvider>
   )
