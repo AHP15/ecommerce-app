@@ -5,7 +5,7 @@ import { Rating } from '@mui/material';
 import styles from "../../styles/product/ProductCard.module.css";
 import {equalByValue} from "../../utils/compareProps";
 
-export default React.memo(({product}) =>{
+const Component = React.memo(({product}) =>{
     const options = {
         value: product.rating,
         readOnly: true,
@@ -36,3 +36,7 @@ export default React.memo(({product}) =>{
         </Link>
     );
 }, equalByValue);
+
+export default function ProductCard({product}){
+  return <Component product={product} />
+}
