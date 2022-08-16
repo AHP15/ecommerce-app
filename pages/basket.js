@@ -15,7 +15,7 @@ export default function Basket(){
           <main className="home" >
             <div className={styles.basket}>
               <div className={styles.basket_items}>
-                <h1>{basket.length > 0?"Shopping Cart" : "Your Amazon Cart is empty."}</h1>
+                <h1>{basket?.length > 0?"Shopping Cart" : "Your Amazon Cart is empty."}</h1>
                 {basket.map(item => (
                   <BasketItem key={item._id} item={item} />
                 ))}

@@ -31,7 +31,7 @@ export function BasketProvider({children}){
     const isItemAdded = (id) => basket.findIndex((item) => item._id === id) !== -1;
 
     useEffect(() =>{
-        if(basket.length > 0){//Not the first render
+        if(basket?.length > 0){//Not the first render
             localStorage.setItem("basket", JSON.stringify(basket))
         };
     }, [basket]);
