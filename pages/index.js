@@ -5,6 +5,7 @@ import ProductCard from "../components/product/ProductCard";
 import connectDB from "../db/connection";
 
 export default function Home({products}) {
+  console.log(products);
   return (
     <>
       <Head>
