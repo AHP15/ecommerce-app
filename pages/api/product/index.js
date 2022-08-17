@@ -6,6 +6,7 @@ import fs from "fs";
 
 async function handler(req, res){
     try{
+
         const DB = await connectDB();
         const Product = DB.collection("products");
 
@@ -17,13 +18,13 @@ async function handler(req, res){
             const image = bucket.openUploadStream(file, {
                 chunkSizeBytes: 1048576,
             });
-            fs.createReadStream(`./files/${file.filename}`).pipe(image);
+            fs.createReadStream(file.originalname).pipe(image);
             images.push({
                 public_id:Math.random().toString(),
                 url:baseUrl+image.id
             });
         });
-        
+
         if(req.method === 'POST'){
 
             const data = {
@@ -53,10 +54,6 @@ async function handler(req, res){
             success:false,
             message: err.message
         })
-    }finally{
-        req.files.forEach(file =>{
-            fs.unlink(`./files/${file.filename}`, err => console.log(err))
-        });
     }
 }
 
