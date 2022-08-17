@@ -18,7 +18,7 @@ export const uploadPhoto =  (handler) => async (req, res) =>{
     return handler(req, res);
 }
 
-const uploadFiles = multer({dest:"files"}).array("images", 12);
+const uploadFiles = multer({storage:"files"}).array("images", 12);
 export const uploadImages = (handler) => async (req, res) => {
     try{
         await util.promisify(uploadFiles)(req,res);
