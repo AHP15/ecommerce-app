@@ -96,6 +96,7 @@ export default function CreateProduct(){
         }
       }catch(err){
         console.log(err.message)
+        setAlert({type:"error", message:err.response?.data?.message ?? err.message});
       }finally{
         setLoading(false);
       }
