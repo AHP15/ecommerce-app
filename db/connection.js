@@ -3,7 +3,7 @@ import { MongoClient } from "mongodb";
 let isConnected = false;
 
 async function connectDB(){
-    const client = new MongoClient(process.env.uri);
+    const client = new MongoClient(process.env.URI);
     if(isConnected) {
         console.log("database already connected");
         return client.db("ecommerce-next");
