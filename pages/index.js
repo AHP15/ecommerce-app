@@ -33,6 +33,7 @@ export async function getStaticProps(){
 
     //make the _id field JSON serializable
     products = products.map(product => ({...product, _id:String(product._id)}));
+    console.log(products);
 
   }catch(err){
     console.log(err.message);
