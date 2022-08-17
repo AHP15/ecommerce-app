@@ -11,7 +11,7 @@ async function handler(req, res){
 
         const bucket = new GridFSBucket(DB, { bucketName: 'productImages' });
         
-        const baseUrl = "http://localhost:3000/api/files/image/"
+        const baseUrl = "https://ecommerce-pupldw8ht-abdessittir.vercel.app/api/files/image/"
         const images = [];
         req.files.forEach(file =>{
             const image = bucket.openUploadStream(file, {

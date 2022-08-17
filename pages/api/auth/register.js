@@ -21,7 +21,7 @@ async function handler(req, res){
         })
         fs.createReadStream(`./files/${req.file.filename}`).pipe(file);
         
-        const baseUrl = "http://localhost:3000/api/files/profile"
+        const baseUrl = "https://ecommerce-pupldw8ht-abdessittir.vercel.app/api/files/profile"
         const data = {
             ...req.body,
             password: bcrypt.hashSync(req.body.password, 10),
