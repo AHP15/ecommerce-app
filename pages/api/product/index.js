@@ -23,7 +23,7 @@ async function handler(req, res){
                 url:baseUrl+image.id
             });
         });
-
+        
         if(req.method === 'POST'){
 
             const data = {
