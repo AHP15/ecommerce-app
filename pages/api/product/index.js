@@ -3,6 +3,7 @@ import verifyToken from "../../../middleware/verifyToken";
 import {uploadImages} from "../../../middleware/upload";
 import { GridFSBucket } from "mongodb";
 import fs from "fs";
+import {Readable} from "stream";
 
 async function handler(req, res){
     try{
@@ -15,10 +16,24 @@ async function handler(req, res){
         const baseUrl = "https://ecommerce-pupldw8ht-abdessittir.vercel.app/api/files/image/"
         const images = [];
         req.files.forEach(file =>{
-            const image = bucket.openUploadStream(file, {
+            //console.log(file.buffer.toString("base64"))
+            const image = bucket.openUploadStream(file.originalname, {
                 chunkSizeBytes: 1048576,
             });
-            fs.createReadStream(file.originalname).pipe(image);
+            /*
+            const readableStream = new Readable({
+                read(){}
+            });
+            readableStream.push(file.buffer);
+            
+            readableStream.on('data', () =>{
+                readableStream.pipe(fs.createWriteStream("test"));
+            })
+            let w = fs.createWriteStream("./files/test")
+            readableStream.pipe(w);
+            readableStream.destroy();*/
+            fs.createReadStream(`./files/${file.filename}`).pipe(image);
+
             images.push({
                 public_id:Math.random().toString(),
                 url:baseUrl+image.id

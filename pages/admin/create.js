@@ -71,15 +71,13 @@ export default function CreateProduct(){
          formData.append("images", image);
       });
 
-      for(let p of formData.entries()){
-        console.log(p[0], p[1]);
-      }
 
       try{
         const url = "/api/product";
         const config = { headers: { "Content-Type": "multipart/form-data" } };
         const {data} = await axios.post(url,formData, config);
         if(data.success){
+          /*
           setProduct({
             name:"",
             price:0,
@@ -88,7 +86,7 @@ export default function CreateProduct(){
             stock:0,
           });
           setImages([]);
-          setImagespreview([]);
+          setImagespreview([]);*/
           setAlert({
             type:"success",
             message:"product created successfully"
