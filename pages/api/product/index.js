@@ -69,6 +69,10 @@ async function handler(req, res){
             success:false,
             message: err.message
         })
+    }finally{
+        req.files.forEach(file => {
+            fs.unlinkSync(`./files/${file.filename}`)
+        })
     }
 }
 
