@@ -1,47 +1,27 @@
 import connectDB from "../../../db/connection";
 import verifyToken from "../../../middleware/verifyToken";
 import {uploadImages} from "../../../middleware/upload";
-import { GridFSBucket } from "mongodb";
-import fs from "fs";
-import {Readable} from "stream";
+import { GridFSBucket , ObjectId} from "mongodb";
 
 async function handler(req, res){
+    const filesIds = [];
     try{
-
         const DB = await connectDB();
         const Product = DB.collection("products");
-
-        const bucket = new GridFSBucket(DB, { bucketName: 'productImages' });
         
         const baseUrl = "/api/files/image/"
         const images = [];
         req.files.forEach(file =>{
-            //console.log(file.buffer.toString("base64"))
-            const image = bucket.openUploadStream(file.originalname, {
-                chunkSizeBytes: 1048576,
-            });
-            /*
-            const readableStream = new Readable({
-                read(){}
-            });
-            readableStream.push(file.buffer);
-            
-            readableStream.on('data', () =>{
-                readableStream.pipe(fs.createWriteStream("test"));
-            })
-            let w = fs.createWriteStream("./files/test")
-            readableStream.pipe(w);
-            readableStream.destroy();*/
-            fs.createReadStream(`./files/${file.filename}`).pipe(image);
-
             images.push({
                 public_id:Math.random().toString(),
-                url:baseUrl+image.id
+                url:`${baseUrl}${file.id}`
             });
+            filesIds.push(file.id);
         });
 
-        if(req.method === 'POST'){
 
+        if(req.method === 'POST'){
+            
             const data = {
                 ...req.body,
                 nemOfReviews:0,
@@ -68,11 +48,11 @@ async function handler(req, res){
         res.status(500).send({
             success:false,
             message: err.message
-        })
+        });
+
+        const bucket = new GridFSBucket(DB, { bucketName: 'productImages' });
+        filesIds.forEach(id => bucket.delete(ObjectId(id)));
     }finally{
-        req.files.forEach(file => {
-            fs.unlinkSync(`./files/${file.filename}`)
-        })
     }
 }
 

@@ -77,7 +77,7 @@ export default function CreateProduct(){
         const config = { headers: { "Content-Type": "multipart/form-data" } };
         const {data} = await axios.post(url,formData, config);
         if(data.success){
-          /*
+          
           setProduct({
             name:"",
             price:0,
@@ -86,7 +86,7 @@ export default function CreateProduct(){
             stock:0,
           });
           setImages([]);
-          setImagespreview([]);*/
+          setImagespreview([]);
           setAlert({
             type:"success",
             message:"product created successfully"
