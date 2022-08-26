@@ -7,6 +7,7 @@ import { useUser } from "../contexts/user/UserContext";
 import { useRouter } from 'next/router';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
+import { useEffect } from "react";
 
 
 const stripePromise = loadStripe(
@@ -17,6 +18,18 @@ export default function Basket(){
     const {basket, subtotal} = useBasket();
     const {user} = useUser();
     const router = useRouter();
+
+    useEffect(() => {
+      // Check to see if this is a redirect back from Checkout
+      const query = new URLSearchParams(window.location.search);
+      if (query.get('success')) {
+        console.log('Order placed! You will receive an email confirmation.');
+      }
+  
+      if (query.get('canceled')) {
+        console.log('Order canceled -- continue to shop around and checkout when you’re ready.');
+      }
+    }, []);
 
     async function handleCheckout(){
       if(!user.isLoggedIn){

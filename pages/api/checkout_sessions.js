@@ -15,6 +15,8 @@ export default async function handler(req, res) {
         },
         quantity: item.quantity,
       }));
+      console.log(items);
+      console.log(`${req.headers.origin}/?success=true`);
 
       const session = await stripe(process.env.STRIPE_SECRET_KEY).checkout.sessions.create({
         line_items: items,
