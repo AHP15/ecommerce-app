@@ -9,7 +9,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import CloseIcon from '@mui/icons-material/Close';
 import { useUser } from "../../contexts/user/UserContext";
-import { useEffect } from "react";
 import { useRouter } from 'next/router';
 
 export default function Products(){
@@ -24,7 +23,7 @@ export default function Products(){
     };
   }, [user]);
   
-  /*
+  
   useEffect(() =>{
     if(window.innerWidth > 700){//in a small screen sidebar should close intianly
       setOpen(true);
@@ -33,7 +32,7 @@ export default function Products(){
     if(window.innerWidth < 700 && open){
       setClose(true);
     }
-  }, []);*/
+  }, []);
 
   function handleClick(){
     setClose(close => !close);

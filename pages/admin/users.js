@@ -9,7 +9,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import styles from '../../styles/admin/Products.module.css';
 import { useUser } from "../../contexts/user/UserContext";
-import { useEffect } from "react";
 import { useRouter } from 'next/router';
 
 export default function Users(){
@@ -23,7 +22,7 @@ export default function Users(){
       router.push("/login");
     };
   }, [user]);
-  /*
+  
   useEffect(() =>{
     if(window.innerWidth > 700){//in a small screen sidebar should close intianly
       setOpen(true);
@@ -32,7 +31,7 @@ export default function Users(){
     if(window.innerWidth < 700 && open){
       setClose(true);
     }
-  }, []);*/
+  }, []);
 
 
   const columns = [
