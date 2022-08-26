@@ -10,16 +10,17 @@ export function useUser(){
 export function UserProvider({children}){
     const [user, setUser] = useState({
         isLoggedIn:false,
+        loading:true,
     });
     
     async function LoadUserData(){
-        let url = "/api/user"
+        let url = "/api/user";
         try{
             const {data} = await axios.get(url);
             if(data.success){
                 setUser({
                     isLoggedIn:true,
-                    info:data.user
+                    info:data.user,
                 });
                 console.log(data)
             }
@@ -35,6 +36,10 @@ export function UserProvider({children}){
         const userLoggedIn = localStorage.getItem("ecommerce-user-loggedIn");
         if(userLoggedIn){
             LoadUserData();
+        }else{
+            setUser({
+                isLoggedIn:false,
+            })
         }
     }, []);
 

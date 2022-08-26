@@ -8,10 +8,21 @@ import styles from "../../styles/admin/Products.module.css";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import CloseIcon from '@mui/icons-material/Close';
+import { useUser } from "../../contexts/user/UserContext";
+import { useEffect } from "react";
+import { useRouter } from 'next/router';
 
 export default function Products(){
   const [open, setOpen] = useState(false);
   const [close, setClose] = useState(false);
+
+  const { user } = useUser();
+  const router = useRouter();
+  useEffect(() => {
+    if (!user.loading && (!user.isLoggedIn || user.info.role !== 'admin')) {
+      router.push("/login");
+    };
+  }, [user]);
 
   useEffect(() =>{
     if(window.innerWidth > 700){//in a small screen sidebar should close intianly

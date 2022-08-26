@@ -22,6 +22,7 @@
         position: relative;
         width:100px;
         height: 50px;
+        text-align: center;
     }
     .navbar > a:hover, .navbar_close> a:hover{
         border: 1px solid white;

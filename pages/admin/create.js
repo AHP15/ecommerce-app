@@ -8,6 +8,9 @@ import Image from "next/image";
 import {useAlert} from "../../contexts/AlertContext";
 import Alert from "../../components/Alert";
 import axios from "axios";
+import { useUser } from "../../contexts/user/UserContext";
+import { useEffect } from "react";
+import { useRouter } from 'next/router';
 
 
 export default function CreateProduct(){
@@ -24,6 +27,14 @@ export default function CreateProduct(){
     const [loading, setLoading] = useState(false);
 
     const {alert, setAlert} = useAlert();
+    const {user} = useUser();
+    const router = useRouter();
+
+    useEffect(() =>{
+      if(!user.loading && (!user.isLoggedIn || user.info.role !== 'admin')){
+        router.push("/login");
+      };
+    }, [user]);
 
     const handleChange = (event) => {
         if(event.target.name === "images"){

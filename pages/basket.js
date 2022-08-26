@@ -3,10 +3,33 @@ import Header from "../components/home/Header";
 import styles from "../styles/basket/Basket.module.css";
 import {useBasket} from "../contexts/basket/BasketContext";
 import BasketItem from "../components/basket/BasketItem";
+import { useUser } from "../contexts/user/UserContext";
+import { useRouter } from 'next/router';
+import { loadStripe } from '@stripe/stripe-js';
+import axios from "axios";
+
+/*
+const stripePromise = loadStripe(
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+);*/
 
 export default function Basket(){
-    const {basket} = useBasket();
-    console.log(basket);
+    const {basket, subtotal} = useBasket();
+    const {user} = useUser();
+    const router = useRouter();
+
+    async function handleCheckout(){
+      if(!user.isLoggedIn){
+        return router.push("/login");
+      }
+
+      try{
+        const {data} = await axios.post("/api/checkout_sessions", basket);
+      }catch(err){
+        console.log(err);
+      }
+    }
+
     return (
         <>
           <Head>
@@ -21,7 +44,10 @@ export default function Basket(){
                   <BasketItem key={item._id} item={item} />
                 ))}
               </div>
-              <div className={styles.basket_subtotal}></div>
+              <div className={styles.basket_subtotal}>
+                <h3>Subtotal ({basket.length} items): ${subtotal()}</h3>
+                <button onClick={handleCheckout}>Proceed To Checkout</button>
+              </div>
             </div>
           </main>
         </>

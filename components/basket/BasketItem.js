@@ -41,7 +41,7 @@ const BasketItem =  React.memo(({item}) =>{
             <h4
               className={styles.item_subtotal}
             >
-                item.Subtotal ({item.quantity} items)${item.quantity * item.price}
+                Subtotal ({item.quantity} items)${item.quantity * item.price}
             </h4>
         </div>
     );

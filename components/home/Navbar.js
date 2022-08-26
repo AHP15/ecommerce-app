@@ -2,15 +2,17 @@ import styles from "../../styles/home/Navbar.module.css";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useRouter } from 'next/router';
 import { useUser } from "../../contexts/user/UserContext";
+import { useBasket } from "../../contexts/basket/BasketContext";
 import Link from "next/link";
 
 export default function Navbar({open, setOpenlinks}) {
     const router = useRouter();
     const {user} = useUser();
+    const {basket} = useBasket();
 
    return (
     <div className={open?styles.navbar:styles.navbar_close}>
-        <Link href="/login">
+        <Link href={user.isLoggedIn?"/":"/login"}>
             <a
               onMouseMove={() =>setOpenlinks(true)}
               onTouchMove={() =>setOpenlinks(true)}
@@ -31,7 +33,7 @@ export default function Navbar({open, setOpenlinks}) {
         <Link href="/basket">
             <a>
             <h5><AddShoppingCartIcon /></h5>
-            <h4>0</h4>
+            <h4>{basket.length}</h4>
             </a>
         </Link>
     </div>

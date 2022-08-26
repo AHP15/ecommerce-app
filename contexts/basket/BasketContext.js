@@ -29,6 +29,11 @@ export function BasketProvider({children}){
         });
     }
     const isItemAdded = (id) => basket.findIndex((item) => item._id === id) !== -1;
+    const subtotal = () => {
+        let total = 0;
+        basket.forEach(item => total += item.price * item.quantity);
+        return total;
+    };
 
     useEffect(() =>{
         if(basket?.length > 0){//Not the first render
@@ -43,7 +48,7 @@ export function BasketProvider({children}){
     },[])
 
     
-    const value = {addItem, removeItem, changeQuantity,isItemAdded, basket }
+    const value = {addItem, removeItem, changeQuantity,isItemAdded,subtotal, basket }
     return (
         <BasketContext.Provider value={value}>
             {children}

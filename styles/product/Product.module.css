@@ -22,6 +22,10 @@
         min-width: 280px;
         height: 600px;
         padding:10px;
+        height:fit-content;
+    }
+    .product_info_container > h1{
+        font-size:20px;
     }
     .actions_container{
         max-width: 150px;
@@ -65,5 +69,11 @@
         border: 1px solid #a88734;
         background-color:#f0c14b;
         cursor: pointer;
+    }
+}
+
+@media (min-width:750px){
+    .product_info_container > h1{
+        font-size:25px;
     }
 }

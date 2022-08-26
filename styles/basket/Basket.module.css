@@ -16,5 +16,18 @@
         flex:0.2;
         height: 150px;
         min-width: 250px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .basket_subtotal > button{
+        display:block;
+        margin-top:20px;
+        width: 100%;
+        border-radius:20px;
+        padding:5px;
+        border: 1px solid #a88734;
+        background-color:#f0c14b;
+        cursor: pointer;
     }
 }
