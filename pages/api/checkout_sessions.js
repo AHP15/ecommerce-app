@@ -15,8 +15,6 @@ export default async function handler(req, res) {
         },
         quantity: item.quantity,
       }));
-      console.log(items);
-      console.log(`${req.headers.origin}/?success=true`);
 
       const session = await stripe(process.env.STRIPE_SECRET_KEY).checkout.sessions.create({
         line_items: items,
@@ -24,11 +22,10 @@ export default async function handler(req, res) {
         success_url: `${req.headers.origin}/?success=true`,
         cancel_url: `${req.headers.origin}/?canceled=true`,
       });
-      console.log(session);
       
       res.redirect(303, session.url);
     } catch (err) {
-      //console.log(err);
+      console.log(err);
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {
