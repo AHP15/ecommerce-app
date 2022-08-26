@@ -8,10 +8,10 @@ import { useRouter } from 'next/router';
 import { loadStripe } from '@stripe/stripe-js';
 import axios from "axios";
 
-/*
+
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-);*/
+);
 
 export default function Basket(){
     const {basket, subtotal} = useBasket();
