@@ -23,7 +23,7 @@ export default function Users(){
       router.push("/login");
     };
   }, [user]);
-
+  /*
   useEffect(() =>{
     if(window.innerWidth > 700){//in a small screen sidebar should close intianly
       setOpen(true);
@@ -32,7 +32,7 @@ export default function Users(){
     if(window.innerWidth < 700 && open){
       setClose(true);
     }
-  }, []);
+  }, []);*/
 
 
   const columns = [

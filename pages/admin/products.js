@@ -23,7 +23,8 @@ export default function Products(){
       router.push("/login");
     };
   }, [user]);
-
+  
+  /*
   useEffect(() =>{
     if(window.innerWidth > 700){//in a small screen sidebar should close intianly
       setOpen(true);
@@ -32,7 +33,8 @@ export default function Products(){
     if(window.innerWidth < 700 && open){
       setClose(true);
     }
-  }, []);
+  }, []);*/
+
   function handleClick(){
     setClose(close => !close);
     setOpen(open => !open);
