@@ -19,13 +19,14 @@ export default async function handler(req, res) {
       const session = await stripe(process.env.STRIPE_SECRET_KEY).checkout.sessions.create({
         line_items: items,
         mode: 'payment',
-        success_url: `${req.headers.origin}/success`,
-        cancel_url: `${req.headers.origin}/canceled`,
+        success_url: `${req.headers.origin}/?success=true`,
+        cancel_url: `${req.headers.origin}/?canceled=true`,
       });
+      console.log(session);
       
       res.redirect(303, session.url);
     } catch (err) {
-      console.log(err);
+      //console.log(err);
       res.status(err.statusCode || 500).json(err.message);
     }
   } else {
