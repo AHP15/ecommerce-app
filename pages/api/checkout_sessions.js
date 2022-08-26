@@ -1,4 +1,4 @@
-import stripe from "stripe";
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
 export default async function handler(req, res) {
   if (req.method === 'POST') {
@@ -16,11 +16,11 @@ export default async function handler(req, res) {
         quantity: item.quantity,
       }));
 
-      const session = await stripe(process.env.STRIPE_SECRET_KEY).checkout.sessions.create({
+      const session = await stripe.checkout.sessions.create({
         line_items: items,
         mode: 'payment',
-        success_url: `${req.headers.origin}/?success=true`,
-        cancel_url: `${req.headers.origin}/?canceled=true`,
+        success_url: `${req.headers.origin}/basket/?success=true`,
+        cancel_url: `${req.headers.origin}/basket/?canceled=true`,
       });
       
       res.redirect(303, session.url);
