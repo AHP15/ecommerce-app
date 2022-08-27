@@ -22,6 +22,7 @@ function runMiddleware(req, res, fn) {
 
 export default async function handler(req, res){
     const {id} = req.query;
+    console.log(req.headers.origin);
 
     try{
         await runMiddleware(req, res, cors);

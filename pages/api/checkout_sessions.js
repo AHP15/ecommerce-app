@@ -17,7 +17,6 @@ export default async function handler(req, res) {
         },
         quantity: item.quantity,
       }));
-      items.map(item => console.log(item.price_data.product_data.images[0]))
 
       const session = await stripe.checkout.sessions.create({
         line_items: items,
