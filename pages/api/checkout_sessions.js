@@ -1,26 +1,7 @@
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const Cors = require('cors')
 
-
-const cors = Cors({
-  methods: [ 'POST'],
-  origin: 'https://checkout.stripe.com'
-});
-
-function runMiddleware(req, res, fn) {
-  return new Promise((resolve, reject) => {
-    fn(req, res, (result) => {
-      if (result instanceof Error) {
-        return reject(result)
-      }
-
-      return resolve(result)
-    })
-  })
-}
 
 export default async function handler(req, res) {
-  await runMiddleware(req, res, cors);
   if (req.method === 'POST') {
     try {
       // Create Checkout Sessions from body params.
@@ -47,11 +28,11 @@ export default async function handler(req, res) {
         cancel_url: `${req.headers.origin}/?canceled=true`,
         metadata: {
           address:req.body.address,
-          images: JSON.stringify(items.map(item => item.image)),
+          images: JSON.stringify(items.map(item => item.price_data.product_data.images)),
       }
       });
       
-      res.redirect(303, session.url);
+      res.status(200).json({id:session.id});
     } catch (err) {
       console.log(err);
       res.status(err.statusCode || 500).json(err.message);

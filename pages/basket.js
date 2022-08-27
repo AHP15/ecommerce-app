@@ -38,11 +38,16 @@ export default function Basket(){
       }
       
       try{
-        await stripePromise;
+        const stripe = await stripePromise;
         const {data} = await axios.post("/api/checkout_sessions", {
           basket,
           address:user.info.address
         });
+
+        const result = await stripe.redirectToCheckout({
+          sessionId: data.id,
+        });
+
       }catch(err){
         console.log(err);
       }
