@@ -18,6 +18,7 @@ export default function Basket(){
     const {basket, subtotal} = useBasket();
     const {user} = useUser();
     const router = useRouter();
+    console.log(user)
 
     useEffect(() => {
       // Check to see if this is a redirect back from Checkout
@@ -35,9 +36,13 @@ export default function Basket(){
       if(!user.isLoggedIn){
         return router.push("/login");
       }
-
+      
       try{
-        const {data} = await axios.post("/api/checkout_sessions", basket);
+        await stripePromise;
+        const {data} = await axios.post("/api/checkout_sessions", {
+          basket,
+          address:user.info.address
+        });
       }catch(err){
         console.log(err);
       }
