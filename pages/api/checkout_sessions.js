@@ -3,7 +3,7 @@ const Cors = require('cors')
 
 
 const cors = Cors({
-  methods: [ 'GET'],
+  methods: [ 'POST'],
   origin: 'https://checkout.stripe.com'
 });
 
