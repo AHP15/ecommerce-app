@@ -10,16 +10,14 @@ export default async function handler(req, res) {
           currency: 'usd',
           unit_amount: item.price * 100,
           product_data: {
-            name: item.name.slice(0,50),
-            description: item.description.slice(0, 100),
+            name: item.name.slice(0,50)+'...',
+            description: item.description.slice(0, 100)+'...',
             images:[`${req.headers.origin}${item.images[0].url}`],
           },
         },
         quantity: item.quantity,
       }));
-      items.forEach(element => {
-        console.log(element.price_data.product_data.images)
-      });
+      items.map(item => console.log(item.price_data.product_data.images[0]))
 
       const session = await stripe.checkout.sessions.create({
         line_items: items,
@@ -28,7 +26,7 @@ export default async function handler(req, res) {
         cancel_url: `${req.headers.origin}/?canceled=true`,
         metadata: {
           address:req.body.address,
-          images: JSON.stringify(items.map(item => item.price_data.product_data.images)),
+          images: JSON.stringify(items.map(item => item.price_data.product_data.images[0])),
       }
       });
       
