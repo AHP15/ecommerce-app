@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       const items = req.body.basket.map(item => ({
         price_data:{
           currency: 'usd',
-          unit_amount: item.price * 100,
+          unit_amount: item.price,
           product_data: {
             name: item.name.slice(0,50)+'...',
             description: item.description.slice(0, 100)+'...',
