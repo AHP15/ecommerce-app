@@ -1,5 +1,5 @@
 import connectDB from "../../../db/connection";
-import {GridFSBucket} from "mongodb";
+import {GridFSBucket, ObjectId} from "mongodb";
 import {uploadPhoto} from "../../../middleware/upload";
 import fs from "fs";
 import validateBody from "../../../utils/validateRequestBody";
@@ -8,25 +8,21 @@ import bcrypt from "bcryptjs";
 import cookie from "cookie";
 
 async function handler(req, res){
+
+    const fileId = req.file.id;
     try{
         console.log(req.body)
         validateBody(req.body, ["name","address", "password"]);
 
         const DB = await connectDB();
         const User = DB.collection("users");
-    
-        const bucket = new GridFSBucket(DB, { bucketName: 'profilePhotos' });
-        const file = bucket.openUploadStream(req.file.originalname, {
-            chunkSizeBytes: 1048576,
-        })
-        fs.createReadStream(`./files/${req.file.filename}`).pipe(file);
         
         const baseUrl = "/api/files/profile"
         const data = {
             ...req.body,
             password: bcrypt.hashSync(req.body.password, 10),
             role:"admin",
-            photo:`${baseUrl}/${file.id}`
+            photo:`${baseUrl}/${fileId}`
         };
         const user = await User.insertOne(data);
 
@@ -48,14 +44,15 @@ async function handler(req, res){
            }
         });
 
-        fs.unlink(`./files/${req.file.filename}`, err => console.log(err))
 
     }catch(err){
         console.log(err);
         res.status(500).json({
             success: false,
             message: err.message,
-        })
+        });
+        const bucket = new GridFSBucket(DB, { bucketName: 'profilePhotos' });
+        bucket.delete(ObjectId(fileId))
     }
 }
 

@@ -81,7 +81,7 @@ export default function Register(){
                isLoggedIn:true,
                info:data.user,
             });
-            localStorage.setItem('eecommerce-user-loggedIn', "true");
+            localStorage.setItem('ecommerce-user-loggedIn', "true");
          }
       }catch(err){
          setAlert({

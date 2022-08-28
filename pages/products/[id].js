@@ -46,6 +46,7 @@ export async function getStaticProps(context) {
             _id:String(product._id)
         }
       },
+      revalidate: 10,
     }
 }
 
