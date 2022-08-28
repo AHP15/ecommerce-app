@@ -5,6 +5,9 @@ export default async function handler(req, res) {
   if (req.method === 'POST') {
     try {
       // Create Checkout Sessions from body params.
+      req.body.basket.forEach(item => {
+        console.log(item.price, item.price * 100)
+      })
       const items = req.body.basket.map(item => ({
         price_data:{
           currency: 'usd',
