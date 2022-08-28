@@ -6,12 +6,12 @@ export default async function handler(req, res) {
     try {
       // Create Checkout Sessions from body params.
       req.body.basket.forEach(item => {
-        console.log(item.price, item.price * 100)
+        console.log(item.price, )
       })
       const items = req.body.basket.map(item => ({
         price_data:{
           currency: 'usd',
-          unit_amount: item.price,
+          unit_amount: Math.round(item.price * 100),
           product_data: {
             name: item.name.slice(0,50)+'...',
             description: item.description.slice(0, 100)+'...',
