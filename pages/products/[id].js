@@ -3,12 +3,15 @@ import {ObjectId} from "mongodb";
 import Head from "next/head";
 import Header from "../../components/home/Header";
 import styles from "../../styles/product/Product.module.css";
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import ProductImages from "../../components/product/ProductImages";
 import { Rating } from '@mui/material';
 import { useState } from "react";
 import { useBasket } from "../../contexts/basket/BasketContext";
+import { useUser } from "../../contexts/user/UserContext";
+import { useAlert } from "../../contexts/AlertContext";
+import Alert from "../../components/Alert";
+import axios from "axios";
+import Review from "../../components/product/Review";
 
 export async function getStaticPaths() {
     let paths = [];
@@ -54,6 +57,7 @@ export default function Product({product}){
 
   const [quantity, setQuantity] = useState(1);
   const {addItem, isItemAdded} = useBasket();
+  const {alert} = useAlert();
 
   const options = {
     value: product.rating,
@@ -114,8 +118,96 @@ export default function Product({product}){
               onClick={bayNow}
               className={styles.bay_now}>Bay Now</button>
           </div>
-
         </main>
+        <Reviews product={product} reviews={product.reviews} />
+        {alert && (
+            <Alert type={alert.type} message={alert.message} />
+        )}
       </>
     );
+}
+
+function Reviews({ product, reviews }) {
+
+  const {user} = useUser();
+  const {setAlert} = useAlert();
+  const [review, setReview] = useState({
+    rating:0,
+    comment:''
+  });
+  const [show, setShow] = useState(false);
+
+  async function addReview(e) {
+    e.preventDefault();
+
+    if(!review.rating){
+      return setAlert({
+        type:"error",
+        message:"Add a rating"
+      })
+    }
+    if(!review.comment){
+      return setAlert({
+        type:"error",
+        message:"Add a comment"
+      })
+    }
+
+    try {
+      let url = "/api/product/review";
+      const { data } = await axios.post(url, {
+        id:product._id,
+        reviews:[...reviews,{
+          ...review,
+          name:user.info?.name,
+          user:user.info?._id
+        }]
+      });
+      if(data.success) {
+        setReview({
+          rating:0,
+          comment:''
+        })
+        setShow(false);
+        setAlert({
+          type:"success",
+          message:"review added"
+        });
+      }
+    } catch (err) {
+      setAlert({
+        type:"error",
+        message:err.response?.data?.message || err.message
+      })
+    }
+  }
+
+  return (
+    <section>
+      <div className={styles.reviews}>
+        {reviews.map(review => (<Review review={review} />))}
+      </div>
+      {
+        show && (
+          <div className={styles.form_container}>
+            <form onSubmit={addReview}>
+              <h2>Add Your Review</h2>
+              <Rating
+                onChange={(e) => setReview(prev => ({ ...prev, rating: Number(e.target.value) }))}
+                value={review.rating}
+                size="large"
+              />
+              <textarea
+                placeholder="Enter your comment"
+                value={review.comment}
+                onChange={(e) => setReview(prev => ({ ...prev, comment: e.target.value }))}
+              />
+              <button className={styles.submit_review}>Submit Review</button>
+            </form>
+          </div>
+        )
+      }
+      <button onClick={() =>setShow(true)} className={styles.add_review}>Add Review</button>
+    </section>
+  );
 }

@@ -2,6 +2,7 @@ import Header from "../components/home/Header";
 import Head from "next/head";
 import Banner from "../components/home/Banner";
 import ProductCard from "../components/product/ProductCard";
+import Footer from "../components/home/footer";
 import connectDB from "../db/connection";
 
 export default function Home({products}) {
@@ -19,6 +20,7 @@ export default function Home({products}) {
           }
         </section>
       </main>
+      <Footer />
     </>
   )
 }

@@ -32,6 +32,20 @@ export function UserProvider({children}){
             console.log(err.response?.data?.message ?? err.message);
         }
     }
+
+    async function logout(){
+        let url = "/api/auth/logout";
+
+        try{
+            const {data} = await axios.get(url);
+            if(data.success){
+                localStorage.removeItem("ecommerce-user-loggedIn");
+                window.location.reload();
+            }
+        }catch(err){
+            console.log(err.response?.data?.message ?? err.message);
+        }
+    }
     useEffect(() =>{
         const userLoggedIn = localStorage.getItem("ecommerce-user-loggedIn");
         if(userLoggedIn){
@@ -44,7 +58,7 @@ export function UserProvider({children}){
     }, []);
 
     return (
-        <UserContext.Provider value={{user, setUser}}>
+        <UserContext.Provider value={{user, setUser, logout}}>
             {children}
         </UserContext.Provider>
     );

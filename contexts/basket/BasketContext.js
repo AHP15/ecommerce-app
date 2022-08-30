@@ -15,7 +15,10 @@ export function BasketProvider({children}){
     }
 
     function removeItem(id){
-        setBasket(prev => prev.filter(item => item._id !== id));
+        setBasket(prev => {
+            console.log(prev.filter(item => item._id !== id))
+            return prev.filter(item => item._id !== id)
+        });
     }
 
     function changeQuantity(quantity,id){
@@ -36,9 +39,7 @@ export function BasketProvider({children}){
     };
 
     useEffect(() =>{
-        if(basket?.length > 0){//Not the first render
-            localStorage.setItem("basket", JSON.stringify(basket))
-        };
+        localStorage.setItem("basket", JSON.stringify(basket))
     }, [basket]);
 
     useEffect(() =>{

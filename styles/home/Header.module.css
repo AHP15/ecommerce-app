@@ -126,6 +126,7 @@
         text-align: center;
         text-decoration: underline;
         opacity: 0;
+        cursor: pointer;
     }
     .user_links_open .link{
         opacity: 1;

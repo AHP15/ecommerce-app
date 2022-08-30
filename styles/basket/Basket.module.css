@@ -31,3 +31,9 @@
         cursor: pointer;
     }
 }
+
+@media (min-width:250px){
+    .basket_subtotal{
+        margin-top: 100px;
+    }
+}

@@ -10,7 +10,7 @@ export default function Header(){
 
     const [open, setOpen] = useState(false);
     const [openlinks, setOpenlinks] = useState(false);
-    const {user} = useUser();
+    const {user, logout} = useUser();
 
 
     return (
@@ -56,7 +56,7 @@ export default function Header(){
               <Link href="/admin/dashboard"><a className={styles.link}>Dashboard</a></Link>
              }
              <Link href="/profile"><a className={styles.link}>Profile</a></Link>
-             <p className={styles.link}>Logout</p>
+               <p onClick={logout} className={styles.link}>Logout</p>
             </div>
             }
         </header>

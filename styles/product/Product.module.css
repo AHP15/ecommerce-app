@@ -60,7 +60,7 @@
         padding:5px;
         font-size:12px;
     }
-    .add_to_cart, .bay_now{
+    .add_to_cart, .bay_now, .add_review, .submit_review{
         display:block;
         margin-top:20px;
         width: 100%;
@@ -69,6 +69,45 @@
         border: 1px solid #a88734;
         background-color:#f0c14b;
         cursor: pointer;
+    }
+    .add_review{
+        width:200px;
+        margin:30px auto;
+    }
+    .form_container{
+        position: fixed;
+        z-index: 90;
+        inset: 0;
+        background-color:rgba(0, 0, 0, 0.3);
+    }
+    .form_container > form{
+        width: 95%;
+        max-width:400px;
+        margin: 100px auto;
+        display: flex;
+        flex-direction: column;
+        background-color:white;
+        padding:10px;
+        border-radius:5px;
+        padding-bottom: 20px;
+    }
+    .form_container > form h2{
+        margin: 20px;
+        text-align: center;
+    }
+    .form_container > form textarea{
+        display:block;
+        margin-top:20px;
+        padding:5px;
+        font-size:17px;
+        height: 200px;
+        width: 100%;
+    }
+    .reviews{
+        margin-top:30px;
+        display:flex;
+        flex-wrap: wrap;
+        justify-content:center;
     }
 }
 

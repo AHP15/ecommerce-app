@@ -10,6 +10,7 @@
         max-width: 400px;
         border-radius: 5px;
         animation:animate-alert 0.3s linear;
+        z-index: 100;
     }
     @keyframes animate-alert {
         from { bottom:-100px}
