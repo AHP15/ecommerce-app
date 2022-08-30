@@ -2,7 +2,7 @@ import Header from "../components/home/Header";
 import Head from "next/head";
 import Banner from "../components/home/Banner";
 import ProductCard from "../components/product/ProductCard";
-import Footer from "../components/home/footer";
+import Footer from "../components/home/Footer";
 import connectDB from "../db/connection";
 
 export default function Home({products}) {
