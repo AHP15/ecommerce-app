@@ -185,7 +185,7 @@ function Reviews({ product, reviews }) {
   return (
     <section>
       <div className={styles.reviews}>
-        {reviews.map(review => (<Review review={review} />))}
+        {reviews.map(review => (<Review key={review.user} review={review} />))}
       </div>
       {
         show && (
