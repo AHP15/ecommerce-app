@@ -12,6 +12,8 @@ import { useAlert } from "../../contexts/AlertContext";
 import Alert from "../../components/Alert";
 import axios from "axios";
 import Review from "../../components/product/Review";
+import CloseIcon from '@mui/icons-material/Close';
+import { useRouter } from "next/router";
 
 export async function getStaticPaths() {
     let paths = [];
@@ -57,7 +59,7 @@ export default function Product({product}){
 
   const [quantity, setQuantity] = useState(1);
   const {addItem, isItemAdded} = useBasket();
-  const {alert} = useAlert();
+  const {alert, setAlert} = useAlert();
 
   const options = {
     value: product.rating,
@@ -72,7 +74,10 @@ export default function Product({product}){
   }
 
   function bayNow(){
-
+    setAlert({
+      type:"error",
+      message:"This functionality is't added yet!"
+    })
   }
 
     return (
@@ -136,6 +141,7 @@ function Reviews({ product, reviews }) {
     comment:''
   });
   const [show, setShow] = useState(false);
+  const router = useRouter();
 
   async function addReview(e) {
     e.preventDefault();
@@ -182,6 +188,14 @@ function Reviews({ product, reviews }) {
     }
   }
 
+  function handleAddReview(){
+    if(!user.isLoggedIn){
+      return router.push("/login");
+    }
+
+    setShow(true);
+  }
+
   return (
     <section>
       <div className={styles.reviews}>
@@ -191,6 +205,9 @@ function Reviews({ product, reviews }) {
         show && (
           <div className={styles.form_container}>
             <form onSubmit={addReview}>
+              <div onClick={() =>setShow(false)} className={styles.form_close}>
+                <CloseIcon />
+              </div>
               <h2>Add Your Review</h2>
               <Rating
                 onChange={(e) => setReview(prev => ({ ...prev, rating: Number(e.target.value) }))}
@@ -207,7 +224,7 @@ function Reviews({ product, reviews }) {
           </div>
         )
       }
-      <button onClick={() =>setShow(true)} className={styles.add_review}>Add Review</button>
+      <button onClick={handleAddReview} className={styles.add_review}>Add Review</button>
     </section>
   );
 }
